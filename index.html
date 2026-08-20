@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vue.js & Nuxt.js Masterclass</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/night.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/monokai.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    .reveal { font-family: 'Inter', sans-serif; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: 'Inter', sans-serif;
+      text-transform: none;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .text-vue {
+      background: -webkit-linear-gradient(45deg, #4fc08d, #2b8a5d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .text-nuxt {
+      background: -webkit-linear-gradient(45deg, #00dc82, #00a360);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .text-yellow { color: #ffdb58 !important; }
+
+    .flex-row { display: flex; gap: 15px; align-items: stretch; margin-top: 12px; }
+    .col {
+      flex: 1;
+      padding: 15px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: left;
+    }
+    .col h4 { margin: 0 0 8px 0; font-size: 0.9em; }
+    .col p { font-size: 0.7em; margin: 5px 0; line-height: 1.4; }
+
+    .reveal pre {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      border-radius: 8px;
+      width: 100%;
+      margin: 10px auto;
+    }
+    .reveal pre code {
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 0.78em;
+      line-height: 1.35;
+      white-space: pre-wrap;
+    }
+    .reveal code.inline {
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    .f-list { padding: 0; margin: 10px 0 0 0; }
+    .f-list li {
+      background: rgba(255,255,255,0.05);
+      padding: 10px 18px;
+      border-radius: 7px;
+      margin-bottom: 8px;
+      list-style: none;
+      border-left: 4px solid #4fc08d;
+      text-align: left;
+      font-size: 0.8em;
+      line-height: 1.4;
+    }
+    .f-list.nuxt li { border-left-color: #00dc82; }
+    .f-list.yellow li { border-left-color: #ffdb58; }
+
+    .callout {
+      padding: 10px 18px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 0.74em;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .callout-info { background: rgba(79,192,141,0.1); border-left: 4px solid #4fc08d; }
+    .callout-warn { background: rgba(255,219,88,0.1); border-left: 4px solid #ffdb58; }
+    .callout-nuxt { background: rgba(0,220,130,0.1); border-left: 4px solid #00dc82; }
+
+    .c-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.7em; border-radius: 8px; overflow: hidden; }
+    .c-table th, .c-table td { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 13px; text-align: left; }
+    .c-table th { font-weight: 800; background: rgba(255,255,255,0.07); }
+    .c-table tr:last-child td { border-bottom: none; }
+    .ok { color: #00dc82; font-weight: bold; }
+    .no { color: #ff4d4f; font-weight: bold; }
+
+    .section-label {
+      display: inline-block;
+      padding: 3px 12px;
+      background: rgba(79,192,141,0.15);
+      border: 1px solid rgba(79,192,141,0.4);
+      border-radius: 20px;
+      font-size: 0.6em;
+      color: #4fc08d;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .section-label.nuxt {
+      background: rgba(0,220,130,0.15);
+      border-color: rgba(0,220,130,0.4);
+      color: #00dc82;
+    }
+
+    .lifecycle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .lc-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 7px;
+      padding: 9px 13px;
+      border-left: 3px solid #4fc08d;
+      text-align: left;
+      font-size: 0.72em;
+    }
+    .lc-item code { color: #ffdb58; font-size: 1em; display: block; margin-bottom: 2px; font-weight: 700; }
+    .lc-item span { opacity: 0.75; }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- TITLE -->
+<section>
+  <h1 style="font-size:3em"><span class="text-vue">Vue.js</span> &amp; <span class="text-nuxt">Nuxt.js</span></h1>
+  <p style="opacity:.6; margin-top:8px">Complete Masterclass — Basics to Advanced</p>
+</section>
+
+<!-- AGENDA -->
+<section>
+  <h2>What We'll Cover</h2>
+  <div class="flex-row">
+    <div class="col">
+      <h4 class="text-vue">Part 1 — Vue.js</h4>
+      <ul class="f-list" style="margin:0">
+        <li>What is Vue &amp; Project Setup</li>
+        <li>Template Syntax &amp; Interpolation</li>
+        <li>Core Directives</li>
+        <li>Reactivity: ref &amp; reactive</li>
+        <li>Computed &amp; Watchers</li>
+        <li>Lifecycle Hooks</li>
+        <li>Components, Props &amp; Emits</li>
+        <li>Slots &amp; Provide/Inject</li>
+        <li>Composables</li>
+        <li>Vue Router</li>
+        <li>Pinia (State Management)</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4 class="text-nuxt">Part 2 — Nuxt.js</h4>
+      <ul class="f-list nuxt" style="margin:0">
+        <li>What is Nuxt &amp; Why?</li>
+        <li>Project Structure</li>
+        <li>File-based Routing</li>
+        <li>Rendering Modes (SSR/SSG/SPA/ISR)</li>
+        <li>Layouts &amp; Pages</li>
+        <li>Data Fetching (useFetch, useAsyncData)</li>
+        <li>Auto-imports</li>
+        <li>Server API (Nitro)</li>
+        <li>Middleware</li>
+        <li>SEO with useHead</li>
+        <li>Nuxt Modules + Full Comparison</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     PART 1: VUE.JS
+     ============================ -->
+
+<!-- 1.1 What is Vue -->
+<section>
+  <section>
+    <div class="section-label">Part 1</div>
+    <h2><span class="text-vue">Vue.js</span></h2>
+    <p>The Progressive JavaScript Framework</p>
+  </section>
+
+  <section>
+    <h3>What is Vue.js?</h3>
+    <ul class="f-list">
+      <li class="fragment">A <strong>UI framework</strong> for building interactive web interfaces.</li>
+      <li class="fragment">Builds on top of standard <strong>HTML, CSS &amp; JavaScript</strong> — no magic.</li>
+      <li class="fragment"><strong>Declarative</strong>: describe what the UI should look like, Vue handles DOM updates.</li>
+      <li class="fragment"><strong>Component-based</strong>: build small reusable pieces and compose them into larger apps.</li>
+      <li class="fragment"><strong>Progressive</strong>: use as a simple script tag OR a full SPA framework — your choice.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Project Setup</h3>
+    <pre><code class="bash" data-trim>
+# Create a new Vue project with Vite
+npm create vue@latest my-app
+
+# Options you'll see:
+# ✔ Add TypeScript? No
+# ✔ Add Vue Router? Yes
+# ✔ Add Pinia? Yes
+
+cd my-app && npm install && npm run dev
+    </code></pre>
+    <div class="callout callout-info">
+      Vite is the modern build tool — blazing fast Hot Module Replacement (HMR) during development.
+    </div>
+  </section>
+
+  <section>
+    <h3>Project Structure</h3>
+    <div class="flex-row">
+      <div class="col">
+        <pre><code class="text" data-trim>
+my-app/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── composables/
+│   ├── router/
+│   │   └── index.js
+│   ├── stores/
+│   ├── views/
+│   ├── App.vue
+│   └── main.js
+├── public/
+└── package.json
+        </code></pre>
+      </div>
+      <div class="col" style="font-size:0.72em; line-height:2">
+        <p>📁 <strong>components/</strong> — Reusable UI pieces</p>
+        <p>📁 <strong>views/</strong> — Page-level components (used by router)</p>
+        <p>📁 <strong>composables/</strong> — Shared logic functions</p>
+        <p>📁 <strong>router/</strong> — Route definitions</p>
+        <p>📁 <strong>stores/</strong> — Pinia global state</p>
+        <p>📄 <strong>App.vue</strong> — Root component</p>
+        <p>📄 <strong>main.js</strong> — App entry point</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- 1.2 Template Syntax -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Template Syntax</h2>
+    <p>How Vue connects your data to the DOM</p>
+  </section>
+
+  <section>
+    <h3>Text Interpolation &amp; Expressions</h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+import { ref } from 'vue'
+const name  = ref('World')
+const count = ref(5)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- Text interpolation --&gt;
+  &lt;h1&gt;Hello, {{ name }}!&lt;/h1&gt;
+
+  &lt;!-- JavaScript expressions inside {{ }} --&gt;
+  &lt;p&gt;{{ count * 2 }}&lt;/p&gt;
+  &lt;p&gt;{{ name.toUpperCase() }}&lt;/p&gt;
+  &lt;p&gt;{{ count > 3 ? 'Big' : 'Small' }}&lt;/p&gt;
+&lt;/template&gt;
+    </code></pre>
+    <div class="callout callout-warn">
+      ⚠️ Only single expressions work inside <code>{{ }}</code> — no statements like <code>if</code> or <code>for</code>.
+    </div>
+  </section>
+
+  <section>
+    <h3>Attribute Binding: <code class="inline">v-bind</code></h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+const imageUrl  = ref('logo.png')
+const btnClass  = ref('primary')
+const isDisabled = ref(true)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- Full syntax --&gt;
+  &lt;img v-bind:src="imageUrl"&gt;
+
+  &lt;!-- Shorthand : (used in practice) --&gt;
+  &lt;img :src="imageUrl" :alt="'Logo'"&gt;
+
+  &lt;!-- Dynamic class and disabled state --&gt;
+  &lt;button :class="btnClass" :disabled="isDisabled"&gt;
+    Click me
+  &lt;/button&gt;
+
+  &lt;!-- Object syntax for multiple classes --&gt;
+  &lt;div :class="{ active: isActive, 'text-bold': isBold }"&gt;&lt;/div&gt;
+&lt;/template&gt;
+    </code></pre>
+  </section>
+</section>
+
+<!-- 1.3 Directives -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Core Directives</h2>
+    <p>Special attributes that control rendering &amp; behavior</p>
+  </section>
+
+  <section>
+    <h3>Event Handling: <code class="inline">v-on</code></h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+const count = ref(0)
+function increment() { count.value++ }
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- Full syntax --&gt;
+  &lt;button v-on:click="increment"&gt;+&lt;/button&gt;
+
+  &lt;!-- Shorthand @ (used in practice) --&gt;
+  &lt;button @click="increment"&gt;+&lt;/button&gt;
+  &lt;button @click="count--"&gt;-&lt;/button&gt;
+
+  &lt;!-- Event modifiers --&gt;
+  &lt;form @submit.prevent="handleSubmit"&gt;...&lt;/form&gt;
+  &lt;div @click.stop="doThis"&gt;...&lt;/div&gt;
+
+  &lt;!-- Key modifiers --&gt;
+  &lt;input @keyup.enter="search"&gt;
+
+  &lt;p&gt;Count: {{ count }}&lt;/p&gt;
+&lt;/template&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Two-way Binding: <code class="inline">v-model</code></h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+const username = ref('')
+const agreed   = ref(false)
+const role     = ref('user')
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- Text input --&gt;
+  &lt;input v-model="username" placeholder="Enter name"&gt;
+  &lt;p&gt;Hello, {{ username }}&lt;/p&gt;
+
+  &lt;!-- Checkbox --&gt;
+  &lt;input type="checkbox" v-model="agreed"&gt; I agree
+
+  &lt;!-- Select dropdown --&gt;
+  &lt;select v-model="role"&gt;
+    &lt;option value="user"&gt;User&lt;/option&gt;
+    &lt;option value="admin"&gt;Admin&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/template&gt;
+    </code></pre>
+    <div class="callout callout-info">
+      <code>v-model</code> is syntactic sugar for <code>:value="x"</code> + <code>@input="x = $event"</code>.
+    </div>
+  </section>
+
+  <section>
+    <h3>Conditional: <code class="inline">v-if</code> vs <code class="inline">v-show</code></h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+const isLoggedIn = ref(false)
+const hasError   = ref(true)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- v-if: element is REMOVED from the DOM --&gt;
+  &lt;h1 v-if="isLoggedIn"&gt;Welcome back!&lt;/h1&gt;
+  &lt;p v-else-if="hasError"&gt;Something went wrong&lt;/p&gt;
+  &lt;p v-else&gt;Please log in&lt;/p&gt;
+
+  &lt;!-- v-show: stays in DOM, toggles display:none --&gt;
+  &lt;div v-show="isLoggedIn"&gt;User menu&lt;/div&gt;
+&lt;/template&gt;
+    </code></pre>
+    <div class="flex-row">
+      <div class="col"><p><strong>v-if</strong> — Use when condition rarely changes. Higher toggle cost.</p></div>
+      <div class="col"><p><strong>v-show</strong> — Use for frequent toggles. Always rendered in DOM.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h3>List Rendering: <code class="inline">v-for</code></h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+const fruits = ref(['Apple', 'Banana', 'Cherry'])
+const users  = ref([
+  { id: 1, name: 'Alice', role: 'Admin' },
+  { id: 2, name: 'Bob',   role: 'User' },
+])
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- Simple array --&gt;
+  &lt;li v-for="fruit in fruits" :key="fruit"&gt;{{ fruit }}&lt;/li&gt;
+
+  &lt;!-- Array of objects --&gt;
+  &lt;div v-for="user in users" :key="user.id"&gt;
+    {{ user.name }} — {{ user.role }}
+  &lt;/div&gt;
+
+  &lt;!-- With index --&gt;
+  &lt;p v-for="(fruit, i) in fruits" :key="i"&gt;
+    {{ i + 1 }}. {{ fruit }}
+  &lt;/p&gt;
+&lt;/template&gt;
+    </code></pre>
+    <div class="callout callout-warn">
+      ⚠️ Always provide a unique <code>:key</code> — it helps Vue efficiently update the DOM.
+    </div>
+  </section>
+</section>
+
+<!-- 1.4 Reactivity -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Reactivity System</h2>
+    <p><code class="inline">ref()</code> &amp; <code class="inline">reactive()</code></p>
+  </section>
+
+  <section>
+    <h3><code class="inline">ref()</code> — Universal Reactive Value</h3>
+    <pre><code class="javascript" data-trim>
+import { ref } from 'vue'
+
+// Works with any type
+const count = ref(0)
+const name  = ref('Alice')
+const items = ref([])
+const user  = ref({ name: 'Bob', age: 25 })
+
+// In &lt;script&gt;: must use .value
+count.value++
+name.value = 'Charlie'
+items.value.push('new item')
+user.value.age = 26
+
+// In &lt;template&gt;: .value is auto-unwrapped
+// {{ count }}   ✅ Vue handles it for you
+    </code></pre>
+    <div class="callout callout-info">
+      💡 Modern Vue best practice: use <code>ref()</code> for everything — it's consistent and predictable.
+    </div>
+  </section>
+
+  <section>
+    <h3><code class="inline">reactive()</code> — Object Reactivity</h3>
+    <pre><code class="javascript" data-trim>
+import { reactive } from 'vue'
+
+const user = reactive({
+  name: 'Alice',
+  age:  30,
+  address: { city: 'Mumbai' }
+})
+
+// No .value needed — direct property access
+user.name = 'Bob'
+user.age++
+user.address.city = 'Delhi'
+    </code></pre>
+    <div class="flex-row">
+      <div class="col">
+        <p><strong>✅ Good for:</strong> grouped form fields or complex objects with many related properties.</p>
+      </div>
+      <div class="col">
+        <p><strong>⚠️ Gotcha:</strong> Destructuring loses reactivity.</p>
+        <pre><code class="js">// ❌ name is no longer reactive
+const { name } = user</code></pre>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- 1.5 Computed & Watch -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Computed &amp; Watchers</h2>
+  </section>
+
+  <section>
+    <h3>Computed Properties</h3>
+    <pre><code class="javascript" data-trim>
+import { ref, computed } from 'vue'
+
+const firstName = ref('John')
+const lastName  = ref('Doe')
+const price     = ref(100)
+const quantity  = ref(3)
+
+// Derived state — cached until dependencies change
+const fullName    = computed(() => `${firstName.value} ${lastName.value}`)
+const total       = computed(() => price.value * quantity.value)
+const isExpensive = computed(() => price.value > 500)
+
+// Writable computed
+const fullNameWritable = computed({
+  get: () => `${firstName.value} ${lastName.value}`,
+  set: (val) => {
+    [firstName.value, lastName.value] = val.split(' ')
+  }
+})
+    </code></pre>
+    <div class="callout callout-info">
+      Computed values are <strong>cached</strong> — they only re-run when their reactive dependencies change. Methods run on every render.
+    </div>
+  </section>
+
+  <section>
+    <h3><code class="inline">watch()</code></h3>
+    <pre><code class="javascript" data-trim>
+import { ref, watch } from 'vue'
+const query   = ref('')
+const results = ref([])
+
+// Watch a single ref
+watch(query, async (newVal, oldVal) => {
+  results.value = await searchAPI(newVal)
+})
+
+// Options
+watch(query, handler, {
+  immediate: true,  // also run on component mount
+  deep: true,       // watch nested object changes
+})
+
+// Watch multiple sources at once
+const firstName = ref('John')
+const lastName  = ref('Doe')
+watch([firstName, lastName], ([newFirst, newLast]) => {
+  console.log('Name changed:', newFirst, newLast)
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3><code class="inline">watchEffect()</code></h3>
+    <pre><code class="javascript" data-trim>
+import { ref, watchEffect } from 'vue'
+const userId = ref(1)
+
+// Automatically tracks ALL reactive deps used inside it
+// Runs immediately on mount
+watchEffect(async () => {
+  const data = await fetchUser(userId.value)
+  console.log('User data:', data)
+})
+    </code></pre>
+    <div class="flex-row">
+      <div class="col"><p><strong>watchEffect</strong>: Auto-tracks deps. Runs immediately. Great for effects with multiple deps.</p></div>
+      <div class="col"><p><strong>watch</strong>: Explicit deps. Lazy by default. Gives you old &amp; new values.</p></div>
+    </div>
+  </section>
+</section>
+
+<!-- 1.6 Lifecycle Hooks -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Lifecycle Hooks</h2>
+    <p>Hook into key moments of a component's life</p>
+  </section>
+
+  <section>
+    <h3>Lifecycle Overview</h3>
+    <div class="lifecycle-grid">
+      <div class="lc-item">
+        <code>onBeforeMount()</code>
+        <span>Component about to mount. DOM not ready yet.</span>
+      </div>
+      <div class="lc-item">
+        <code>onMounted()</code>
+        <span>DOM ready. ✅ Fetch data &amp; access DOM refs here.</span>
+      </div>
+      <div class="lc-item">
+        <code>onBeforeUpdate()</code>
+        <span>Reactive state changed, DOM update pending.</span>
+      </div>
+      <div class="lc-item">
+        <code>onUpdated()</code>
+        <span>DOM has re-rendered after reactive changes.</span>
+      </div>
+      <div class="lc-item">
+        <code>onBeforeUnmount()</code>
+        <span>Component about to be destroyed. ✅ Clean up here.</span>
+      </div>
+      <div class="lc-item">
+        <code>onUnmounted()</code>
+        <span>Component destroyed. Clear timers &amp; event listeners.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Lifecycle in Practice</h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+const data       = ref(null)
+const windowWidth = ref(window.innerWidth)
+let intervalId   = null
+
+onMounted(async () => {
+  // Fetch data when component is ready
+  data.value = await fetchUsers()
+
+  // Start a polling interval
+  intervalId = setInterval(() => fetchUpdates(), 5000)
+
+  // Listen to browser events
+  window.addEventListener('resize', handleResize)
+})
+
+onBeforeUnmount(() => {
+  // ALWAYS clean up to prevent memory leaks
+  clearInterval(intervalId)
+  window.removeEventListener('resize', handleResize)
+})
+&lt;/script&gt;
+    </code></pre>
+  </section>
+</section>
+
+<!-- 1.7 Components -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Components</h2>
+    <p>Build once, reuse everywhere</p>
+  </section>
+
+  <section>
+    <h3>Single File Components (SFC)</h3>
+    <pre><code class="html" data-trim>
+&lt;!-- UserCard.vue --&gt;
+&lt;script setup&gt;
+// All your logic here
+const isHovered = ref(false)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- HTML structure here --&gt;
+  &lt;div class="card" @mouseenter="isHovered = true"&gt;
+    &lt;slot /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+/* Styles here — scoped only applies to THIS component */
+.card { padding: 20px; border-radius: 8px; }
+&lt;/style&gt;
+    </code></pre>
+    <div class="callout callout-info">
+      The <strong>scoped</strong> attribute on <code>&lt;style&gt;</code> means styles will NOT leak into child components.
+    </div>
+  </section>
+
+  <section>
+    <h3>Props — Parent → Child Data</h3>
+    <pre><code class="html" data-trim>
+&lt;!-- UserCard.vue (Child) --&gt;
+&lt;script setup&gt;
+const props = defineProps({
+  name: { type: String, required: true },
+  age:  { type: Number, default: 18 },
+  role: { type: String, default: 'User' },
+})
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div&gt;{{ props.name }} ({{ props.age }}) — {{ props.role }}&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;!-- Parent.vue --&gt;
+&lt;template&gt;
+  &lt;UserCard name="Alice" :age="30" role="Admin" /&gt;
+  &lt;UserCard name="Bob" /&gt;  &lt;!-- uses defaults --&gt;
+&lt;/template&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Emits — Child → Parent Events</h3>
+    <pre><code class="html" data-trim>
+&lt;!-- ConfirmDialog.vue (Child) --&gt;
+&lt;script setup&gt;
+const emit = defineEmits(['confirm', 'cancel'])
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div class="dialog"&gt;
+    &lt;p&gt;Are you sure?&lt;/p&gt;
+    &lt;button @click="emit('confirm')"&gt;Yes&lt;/button&gt;
+    &lt;button @click="emit('cancel')"&gt;No&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;!-- Parent.vue --&gt;
+&lt;script setup&gt;
+function onConfirm() { console.log('Confirmed!') }
+function onCancel()  { console.log('Cancelled!') }
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;ConfirmDialog @confirm="onConfirm" @cancel="onCancel" /&gt;
+&lt;/template&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Slots — Flexible Content Injection</h3>
+    <pre><code class="html" data-trim>
+&lt;!-- Card.vue --&gt;
+&lt;template&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="header"&gt;
+      &lt;slot name="header"&gt;Default Header&lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div class="body"&gt;
+      &lt;slot /&gt;  &lt;!-- default slot --&gt;
+    &lt;/div&gt;
+    &lt;div class="footer"&gt;
+      &lt;slot name="footer" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Card&gt;
+  &lt;template #header&gt;&lt;h2&gt;My Title&lt;/h2&gt;&lt;/template&gt;
+  &lt;p&gt;Main body content here.&lt;/p&gt;
+  &lt;template #footer&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/template&gt;
+&lt;/Card&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Provide &amp; Inject</h3>
+    <p>Pass data deep down the component tree without prop drilling.</p>
+    <pre><code class="html" data-trim>
+&lt;!-- GrandParent.vue --&gt;
+&lt;script setup&gt;
+import { provide, ref } from 'vue'
+const theme = ref('dark')
+provide('theme', theme)  // Provide to all descendants
+&lt;/script&gt;
+
+&lt;!-- DeepChild.vue (any level deep) --&gt;
+&lt;script setup&gt;
+import { inject } from 'vue'
+const theme = inject('theme')  // Get from any ancestor
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div :class="`theme-${theme}`"&gt;I know the theme!&lt;/div&gt;
+&lt;/template&gt;
+    </code></pre>
+    <div class="callout callout-warn">
+      Use Pinia for app-wide state. Provide/Inject is ideal for theme, locale, or feature-scoped data.
+    </div>
+  </section>
+</section>
+
+<!-- 1.8 Composables -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Composables</h2>
+    <p>Reusable stateful logic — Vue's answer to custom hooks</p>
+  </section>
+
+  <section>
+    <h3>Creating a Composable</h3>
+    <pre><code class="javascript" data-trim>
+// composables/useFetch.js
+import { ref } from 'vue'
+
+export function useFetch(url) {
+  const data    = ref(null)
+  const error   = ref(null)
+  const loading = ref(true)
+
+  fetch(url)
+    .then(res => res.json())
+    .then(json => { data.value = json; loading.value = false })
+    .catch(err => { error.value = err; loading.value = false })
+
+  return { data, error, loading }
+}
+    </code></pre>
+    <pre><code class="html" data-trim>
+&lt;!-- Use in any component --&gt;
+&lt;script setup&gt;
+import { useFetch } from '@/composables/useFetch'
+const { data: users, loading, error } = useFetch('/api/users')
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div v-if="loading"&gt;Loading...&lt;/div&gt;
+  &lt;div v-else-if="error"&gt;Error!&lt;/div&gt;
+  &lt;ul v-else&gt;
+    &lt;li v-for="u in users" :key="u.id"&gt;{{ u.name }}&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/template&gt;
+    </code></pre>
+  </section>
+</section>
+
+<!-- 1.9 Vue Router -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Vue Router</h2>
+    <p>Client-side navigation for SPAs</p>
+  </section>
+
+  <section>
+    <h3>Setting Up Routes</h3>
+    <pre><code class="javascript" data-trim>
+// router/index.js
+import { createRouter, createWebHistory } from 'vue-router'
+
+const routes = [
+  { path: '/',        component: () => import('@/views/Home.vue') },
+  { path: '/about',   component: () => import('@/views/About.vue') },
+  // Dynamic route parameter
+  { path: '/user/:id', component: () => import('@/views/Profile.vue') },
+  // Named route + auth guard via meta
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('@/views/Admin.vue'),
+    meta: { requiresAuth: true }
+  }
+]
+
+export default createRouter({
+  history: createWebHistory(),
+  routes
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Navigation &amp; Route Params</h3>
+    <pre><code class="html" data-trim>
+&lt;template&gt;
+  &lt;nav&gt;
+    &lt;RouterLink to="/"&gt;Home&lt;/RouterLink&gt;
+    &lt;RouterLink :to="{ name: 'admin' }"&gt;Admin&lt;/RouterLink&gt;
+    &lt;RouterLink :to="`/user/${userId}`"&gt;Profile&lt;/RouterLink&gt;
+  &lt;/nav&gt;
+  &lt;RouterView /&gt;  &lt;!-- Current page renders here --&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import { useRouter, useRoute } from 'vue-router'
+
+const router = useRouter()
+const route  = useRoute()
+
+// Read params and query
+console.log(route.params.id)    // /user/42 → "42"
+console.log(route.query.search) // ?search=vue → "vue"
+
+// Programmatic navigation
+router.push('/about')
+router.push({ name: 'admin', query: { tab: 'users' } })
+router.back()
+&lt;/script&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Navigation Guards (Auth Protection)</h3>
+    <pre><code class="javascript" data-trim>
+// Global guard in router/index.js
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = !!localStorage.getItem('token')
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next({ path: '/login', query: { redirect: to.fullPath } })
+  } else {
+    next()
+  }
+})
+
+// Per-component guard
+onBeforeRouteLeave((to, from, next) => {
+  if (hasUnsavedChanges.value) {
+    if (confirm('Leave without saving?')) next()
+    else next(false)
+  } else {
+    next()
+  }
+})
+    </code></pre>
+  </section>
+</section>
+
+<!-- 1.10 Pinia -->
+<section>
+  <section>
+    <div class="section-label">Vue.js</div>
+    <h2>Pinia</h2>
+    <p>Global State Management</p>
+  </section>
+
+  <section>
+    <h3>Defining a Store</h3>
+    <pre><code class="javascript" data-trim>
+// stores/auth.js
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+
+export const useAuthStore = defineStore('auth', () => {
+  // STATE
+  const user  = ref(null)
+  const token = ref(localStorage.getItem('token'))
+
+  // GETTERS (computed)
+  const isLoggedIn = computed(() => !!token.value)
+  const fullName   = computed(() => user.value?.name ?? 'Guest')
+
+  // ACTIONS
+  async function login(email, password) {
+    const res   = await api.post('/login', { email, password })
+    token.value = res.data.token
+    user.value  = res.data.user
+    localStorage.setItem('token', token.value)
+  }
+
+  function logout() {
+    user.value  = null
+    token.value = null
+    localStorage.removeItem('token')
+  }
+
+  return { user, token, isLoggedIn, fullName, login, logout }
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Using the Store in Components</h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+import { useAuthStore } from '@/stores/auth'
+const auth = useAuthStore()
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div v-if="auth.isLoggedIn"&gt;
+    &lt;p&gt;Welcome, {{ auth.fullName }}!&lt;/p&gt;
+    &lt;button @click="auth.logout()"&gt;Logout&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div v-else&gt;
+    &lt;button @click="auth.login(email, pass)"&gt;Login&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+    </code></pre>
+    <div class="callout callout-info">
+      Pinia stores are accessible from <strong>any component</strong>. State is shared globally and reactive everywhere.
+    </div>
+  </section>
+</section>
+
+<!-- ============================
+     PART 2: NUXT.JS
+     ============================ -->
+
+<section>
+  <div class="section-label nuxt">Part 2</div>
+  <h2 style="font-size:2.6em">Enter <span class="text-nuxt">Nuxt.js</span></h2>
+  <p>Vue, but with superpowers 🚀</p>
+</section>
+
+<!-- 2.1 What is Nuxt -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>What is Nuxt?</h2>
+  </section>
+
+  <section>
+    <h3>Nuxt = Vue + Framework Layer</h3>
+    <ul class="f-list nuxt">
+      <li class="fragment"><strong>Full-stack framework</strong> built on top of Vue.js.</li>
+      <li class="fragment"><strong>File-based routing</strong> — no manual router config needed.</li>
+      <li class="fragment"><strong>Multiple rendering modes</strong> — SSR, SSG, SPA, and ISR.</li>
+      <li class="fragment"><strong>Auto-imports</strong> — components and composables imported automatically.</li>
+      <li class="fragment"><strong>Built-in server (Nitro)</strong> — write API endpoints alongside your UI.</li>
+      <li class="fragment"><strong>SEO-friendly</strong> by default — server renders full HTML on first load.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Nuxt Project Structure</h3>
+    <div class="flex-row">
+      <div class="col">
+        <pre><code class="text" data-trim>
+nuxt-app/
+├── pages/          ← Auto routing
+├── components/     ← Auto-imported
+├── composables/    ← Auto-imported
+├── layouts/        ← Page layouts
+├── middleware/     ← Route guards
+├── plugins/        ← App plugins
+├── server/
+│   ├── api/        ← API endpoints
+│   └── middleware/ ← Server middleware
+├── public/
+├── assets/
+├── app.vue
+└── nuxt.config.ts
+        </code></pre>
+      </div>
+      <div class="col" style="font-size:0.7em; line-height:2">
+        <p>📁 <strong>pages/</strong> — Maps to routes automatically</p>
+        <p>📁 <strong>components/</strong> — Auto-imported, zero config</p>
+        <p>📁 <strong>layouts/</strong> — Wraps pages with shared UI</p>
+        <p>📁 <strong>server/api/</strong> — Backend endpoints (Nitro)</p>
+        <p>📁 <strong>middleware/</strong> — Auth &amp; route protection</p>
+        <p>📄 <strong>nuxt.config.ts</strong> — Central configuration</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- 2.2 File-based Routing -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>File-based Routing</h2>
+    <p>Your folder structure IS your router</p>
+  </section>
+
+  <section>
+    <h3>Files → Routes (Auto-generated)</h3>
+    <div class="flex-row">
+      <div class="col">
+        <pre><code class="text" data-trim>
+pages/
+├── index.vue
+├── about.vue
+├── blog/
+│   ├── index.vue
+│   └── [slug].vue
+├── users/
+│   ├── index.vue
+│   └── [id]/
+│       ├── index.vue
+│       └── settings.vue
+└── [...404].vue
+        </code></pre>
+      </div>
+      <div class="col" style="font-size:0.73em; line-height:2.1">
+        <p><code>/</code> ← index.vue</p>
+        <p><code>/about</code> ← about.vue</p>
+        <p><code>/blog</code> ← blog/index.vue</p>
+        <p><code>/blog/hello-world</code> ← blog/[slug].vue</p>
+        <p><code>/users</code> ← users/index.vue</p>
+        <p><code>/users/42</code> ← users/[id]/index.vue</p>
+        <p><code>/users/42/settings</code> ← users/[id]/settings.vue</p>
+        <p><code>/anything-else</code> ← […404].vue</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Dynamic Routes in Practice</h3>
+    <pre><code class="html" data-trim>
+&lt;!-- pages/blog/[slug].vue --&gt;
+&lt;script setup&gt;
+// useRoute is auto-imported — no imports needed!
+const route = useRoute()
+const slug  = route.params.slug
+
+// useFetch is auto-imported too
+const { data: post } = await useFetch(`/api/posts/${slug}`)
+
+// SEO — auto-imported useHead
+useHead({ title: post.value?.title })
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;article&gt;
+    &lt;h1&gt;{{ post.title }}&lt;/h1&gt;
+    &lt;p&gt;{{ post.content }}&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/template&gt;
+    </code></pre>
+    <div class="callout callout-nuxt">
+      Notice zero manual imports! Nuxt auto-imports <code>useRoute</code>, <code>useFetch</code>, <code>useHead</code> and more.
+    </div>
+  </section>
+</section>
+
+<!-- 2.3 Rendering Modes -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>Rendering Modes</h2>
+    <p>Choose how and when HTML is generated</p>
+  </section>
+
+  <section>
+    <h3>4 Rendering Modes Explained</h3>
+    <table class="c-table">
+      <thead>
+        <tr><th>Mode</th><th>When HTML is generated</th><th>Best for</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SPA</strong></td>
+          <td>In the browser (client)</td>
+          <td>Dashboards, admin panels</td>
+        </tr>
+        <tr>
+          <td><strong>SSR</strong></td>
+          <td>On the server per request</td>
+          <td>E-commerce, dynamic content</td>
+        </tr>
+        <tr>
+          <td><strong>SSG</strong></td>
+          <td>At build time (static files)</td>
+          <td>Blogs, docs, marketing pages</td>
+        </tr>
+        <tr>
+          <td><strong>ISR</strong></td>
+          <td>Build time + periodic re-gen</td>
+          <td>High-traffic sites needing fresh data</td>
+        </tr>
+      </tbody>
+    </table>
+    <pre><code class="javascript" data-trim>
+// nuxt.config.ts — set per route with routeRules
+routeRules: {
+  '/':        { prerender: true },   // SSG — build time
+  '/blog/**': { swr: 3600 },         // ISR — rebuild every hour
+  '/admin/**':{ ssr: false },         // SPA — no SSR for admin
+}
+    </code></pre>
+  </section>
+</section>
+
+<!-- 2.4 Layouts -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>Layouts &amp; Pages</h2>
+  </section>
+
+  <section>
+    <h3>Defining &amp; Using Layouts</h3>
+    <pre><code class="html" data-trim>
+&lt;!-- layouts/default.vue — wraps every page by default --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;AppHeader /&gt;
+    &lt;main&gt;
+      &lt;slot /&gt;  &lt;!-- Page content renders here --&gt;
+    &lt;/main&gt;
+    &lt;AppFooter /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;!-- layouts/admin.vue --&gt;
+&lt;template&gt;
+  &lt;div class="admin-shell"&gt;
+    &lt;AdminSidebar /&gt;
+    &lt;slot /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;!-- pages/dashboard.vue — uses the admin layout --&gt;
+&lt;script setup&gt;
+definePageMeta({ layout: 'admin' })
+&lt;/script&gt;
+    </code></pre>
+  </section>
+</section>
+
+<!-- 2.5 Data Fetching -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>Data Fetching</h2>
+    <p>Isomorphic — works on server AND client</p>
+  </section>
+
+  <section>
+    <h3><code class="inline">useFetch</code></h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+// Fetches on SERVER during SSR → no flash of empty content
+// Refetches on client during navigation
+const { data, pending, error, refresh } = await useFetch('/api/posts')
+
+// With options
+const { data: user } = await useFetch('/api/user', {
+  method: 'POST',
+  body:   { name: 'Alice' },
+  headers: { Authorization: 'Bearer ...' },
+  watch:   [userId],        // re-fetch when userId changes
+  transform: (d) => d.items // shape the returned data
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div v-if="pending"&gt;Loading...&lt;/div&gt;
+  &lt;ul v-else&gt;
+    &lt;li v-for="post in data" :key="post.id"&gt;{{ post.title }}&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;button @click="refresh()"&gt;Reload&lt;/button&gt;
+&lt;/template&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3><code class="inline">useAsyncData</code> — More Control</h3>
+    <pre><code class="javascript" data-trim>
+// Use any async logic, not just fetch
+const { data: posts } = await useAsyncData(
+  'posts',               // unique cache key
+  () => $fetch('/api/posts')
+)
+
+// Combining multiple requests in one call
+const { data } = await useAsyncData('dashboard', async () => {
+  const [users, orders] = await Promise.all([
+    $fetch('/api/users'),
+    $fetch('/api/orders')
+  ])
+  return { users, orders }
+})
+    </code></pre>
+    <div class="flex-row">
+      <div class="col"><p><strong>useFetch</strong>: Simple URL-based fetching. Cache key auto-generated from URL.</p></div>
+      <div class="col"><p><strong>useAsyncData</strong>: Custom async functions, named cache keys, parallel requests.</p></div>
+    </div>
+  </section>
+</section>
+
+<!-- 2.6 Auto-imports -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>Auto-imports</h2>
+    <p>Write less boilerplate, ship faster</p>
+  </section>
+
+  <section>
+    <h3>What Gets Auto-imported?</h3>
+    <div class="flex-row">
+      <div class="col">
+        <p style="font-size:0.8em; font-weight:700; color:#00dc82; margin-bottom:8px">✅ Auto-imported in Nuxt</p>
+        <ul style="font-size:0.68em; line-height:1.9; padding-left:15px">
+          <li>All files from <code>components/</code></li>
+          <li>All files from <code>composables/</code></li>
+          <li>Vue APIs: <code>ref</code>, <code>computed</code>, <code>watch</code>…</li>
+          <li>Nuxt composables: <code>useFetch</code>, <code>useRoute</code>, <code>useHead</code>…</li>
+          <li>Pinia: <code>defineStore</code>, store files</li>
+        </ul>
+      </div>
+      <div class="col">
+        <pre><code class="html" data-trim>
+&lt;!-- Vue — must import everything --&gt;
+&lt;script setup&gt;
+import { ref, computed }    from 'vue'
+import MyButton              from '@/components/MyButton.vue'
+import { useAuth }           from '@/composables/useAuth'
+import { useAuthStore }      from '@/stores/auth'
+&lt;/script&gt;
+
+&lt;!-- Nuxt — zero imports needed! --&gt;
+&lt;script setup&gt;
+const count = ref(0)          // ✅ auto
+const auth  = useAuth()       // ✅ auto
+const store = useAuthStore()  // ✅ auto
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;MyButton /&gt;  &lt;!-- ✅ auto-imported --&gt;
+&lt;/template&gt;
+        </code></pre>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- 2.7 Server API -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>Server API with Nitro</h2>
+    <p>Full-stack in one project</p>
+  </section>
+
+  <section>
+    <h3>Creating API Endpoints</h3>
+    <pre><code class="javascript" data-trim>
+// server/api/users.get.ts   → GET /api/users
+export default defineEventHandler(async (event) => {
+  const users = await db.user.findMany()
+  return users
+})
+
+// server/api/users.post.ts  → POST /api/users
+export default defineEventHandler(async (event) => {
+  const body = await readBody(event)
+  const user = await db.user.create({ data: body })
+  return user
+})
+
+// server/api/users/[id].get.ts  → GET /api/users/42
+export default defineEventHandler(async (event) => {
+  const id   = getRouterParam(event, 'id')
+  const user = await db.user.findUnique({ where: { id } })
+  if (!user) throw createError({ statusCode: 404 })
+  return user
+})
+    </code></pre>
+    <div class="callout callout-nuxt">
+      File naming: <code>name.METHOD.ts</code> — Nitro auto-registers the HTTP method.
+    </div>
+  </section>
+
+  <section>
+    <h3>Consuming Your Own API</h3>
+    <pre><code class="html" data-trim>
+&lt;!-- pages/users/index.vue --&gt;
+&lt;script setup&gt;
+const { data: users, refresh } = await useFetch('/api/users')
+
+async function createUser(formData) {
+  await $fetch('/api/users', {
+    method: 'POST',
+    body: formData
+  })
+  await refresh()  // reload list
+}
+&lt;/script&gt;
+    </code></pre>
+    <div class="callout callout-nuxt">
+      During SSR, Nuxt calls the server handler <strong>directly in memory</strong> — no HTTP round trip. During client-side navigation it becomes a real HTTP fetch.
+    </div>
+  </section>
+</section>
+
+<!-- 2.8 Middleware -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>Middleware</h2>
+    <p>Protect routes &amp; redirect users</p>
+  </section>
+
+  <section>
+    <h3>Route Middleware</h3>
+    <pre><code class="javascript" data-trim>
+// middleware/auth.ts
+export default defineNuxtRouteMiddleware((to, from) => {
+  const token = useCookie('token')
+
+  if (!token.value) {
+    // Redirect to login if not authenticated
+    return navigateTo('/login')
+  }
+})
+
+// middleware/admin.ts — role check
+export default defineNuxtRouteMiddleware(() => {
+  const auth = useAuthStore()
+  if (auth.user?.role !== 'admin') {
+    return navigateTo('/')
+  }
+})
+    </code></pre>
+    <pre><code class="html" data-trim>
+&lt;!-- Apply to specific page --&gt;
+&lt;script setup&gt;
+definePageMeta({ middleware: ['auth', 'admin'] })
+&lt;/script&gt;
+    </code></pre>
+  </section>
+</section>
+
+<!-- 2.9 SEO -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>SEO &amp; Meta Tags</h2>
+    <p>Server-rendered metadata for perfect SEO</p>
+  </section>
+
+  <section>
+    <h3><code class="inline">useSeoMeta()</code> &amp; <code class="inline">useHead()</code></h3>
+    <pre><code class="html" data-trim>
+&lt;script setup&gt;
+const route = useRoute()
+const { data: post } = await useFetch(`/api/posts/${route.params.slug}`)
+
+// useSeoMeta — type-safe, no typos!
+useSeoMeta({
+  title:          post.value.title,
+  description:    post.value.excerpt,
+  ogTitle:        post.value.title,
+  ogDescription:  post.value.excerpt,
+  ogImage:        post.value.coverImage,
+  twitterCard:    'summary_large_image',
+})
+
+// useHead — full control
+useHead({
+  title: post.value.title,
+  link: [{ rel: 'canonical', href: `https://mysite.com/blog/${route.params.slug}` }],
+  script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(schema) }]
+})
+&lt;/script&gt;
+    </code></pre>
+    <div class="callout callout-nuxt">
+      Because Nuxt uses SSR, search engines see fully populated meta tags — perfect for SEO and social sharing.
+    </div>
+  </section>
+</section>
+
+<!-- 2.10 Modules -->
+<section>
+  <section>
+    <div class="section-label nuxt">Nuxt.js</div>
+    <h2>Nuxt Modules</h2>
+    <p>Zero-config integrations for everything</p>
+  </section>
+
+  <section>
+    <h3>Popular Modules</h3>
+    <ul class="f-list nuxt">
+      <li><strong>@nuxtjs/tailwindcss</strong> — Tailwind CSS with zero config</li>
+      <li><strong>@pinia/nuxt</strong> — Pinia with SSR support, auto-imports stores</li>
+      <li><strong>@nuxt/image</strong> — Automatic image optimization &amp; WebP conversion</li>
+      <li><strong>@nuxtjs/i18n</strong> — Internationalization &amp; locale-based routing</li>
+      <li><strong>@nuxt/content</strong> — File-based CMS — write pages in Markdown</li>
+      <li><strong>@sidebase/nuxt-auth</strong> — OAuth, JWT, session-based authentication</li>
+    </ul>
+    <pre><code class="javascript" data-trim>
+// nuxt.config.ts — just list them, they configure themselves
+export default defineNuxtConfig({
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+    '@nuxt/image',
+    '@nuxtjs/i18n',
+  ]
+})
+    </code></pre>
+  </section>
+</section>
+
+<!-- FINAL COMPARISON -->
+<section>
+  <h2><span class="text-vue">Vue</span> vs <span class="text-nuxt">Nuxt</span> — Summary</h2>
+  <table class="c-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th class="text-vue">Vue SPA</th>
+        <th class="text-nuxt">Nuxt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Routing</td><td>Manual (Vue Router)</td><td><span class="ok">✓</span> File-based (auto)</td></tr>
+      <tr><td>SEO</td><td><span class="no">✗</span> Poor (client render)</td><td><span class="ok">✓</span> Excellent (SSR/SSG)</td></tr>
+      <tr><td>Data Fetching</td><td>onMounted + fetch</td><td><span class="ok">✓</span> useFetch / useAsyncData</td></tr>
+      <tr><td>Auto-imports</td><td><span class="no">✗</span> All manual</td><td><span class="ok">✓</span> Fully automatic</td></tr>
+      <tr><td>Backend / API</td><td><span class="no">✗</span> Separate project needed</td><td><span class="ok">✓</span> Built-in (Nitro)</td></tr>
+      <tr><td>Rendering Modes</td><td>SPA only</td><td><span class="ok">✓</span> SSR, SSG, SPA, ISR</td></tr>
+      <tr><td>Layouts</td><td>Manual setup</td><td><span class="ok">✓</span> Built-in layouts system</td></tr>
+      <tr><td>Learning Curve</td><td>Low</td><td>Medium (worth it!)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- THANK YOU -->
+<section>
+  <h2>Thank You! 🙌</h2>
+  <p>Keep building amazing things with <span class="text-vue">Vue</span> &amp; <span class="text-nuxt">Nuxt</span>.</p>
+  <p style="opacity:.4; margin-top:40px; font-size:0.6em">
+    Arrow keys to navigate &nbsp;·&nbsp; <kbd>ESC</kbd> for overview &nbsp;·&nbsp; <kbd>F</kbd> for fullscreen
+  </p>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1100,
+    height: 780,
+    margin: 0.08,
+    hash: true,
+    plugins: [ RevealHighlight ],
+    slideNumber: 'c/t',
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    backgroundTransition: 'fade',
+  });
+</script>
+</body>
+</html>
